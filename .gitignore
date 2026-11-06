@@ -1,0 +1,10 @@
+ops/out/
+__pycache__/
+# Customer data stays out of the public repo (kept in the private ops store)
+ops/orders/*.json
+ops/ledger.csv
+ops/reports/*.md
+# Secrets: never commit
+.env
+.env.*
+!.env.example

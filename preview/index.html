@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Instant Website Preview for Tradespeople | Callout Web</title>
+<meta name="description" content="Type your business details and see your new trade website instantly. Free to try. Go live for £249 one-off, built and hosted for you.">
+<link rel="canonical" href="https://calloutwebhello-ops.github.io/preview/">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<!--CSS-->
+<style>
+:root{--paper:#f2f4f1;--card:#fff;--ink:#16212b;--muted:#56636e;--rule:#cfd6d2;--hivis:#f2c230;--hivis-ink:#16212b;--blue:#1f4f7a;--ok:#2f7a4c;--warn:#a1521b;
+--display:"Archivo","Arial Narrow",Arial,sans-serif;--body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--paper:#10171d;--card:#18222b;--ink:#e8edf0;--muted:#9aa8b2;--rule:#2c3a45;--blue:#7fb2e0;--ok:#6cc392;--warn:#e7a06b;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#10171d;--card:#18222b;--ink:#e8edf0;--muted:#9aa8b2;--rule:#2c3a45;--blue:#7fb2e0;--ok:#6cc392;--warn:#e7a06b;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--body)}
+.wrap{max-width:1280px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav{display:flex;justify-content:space-between;align-items:center;padding-block:16px;gap:12px;flex-wrap:wrap}
+.logo{font:800 1.2rem/1 var(--display);display:flex;gap:8px;align-items:center;color:var(--ink);text-decoration:none}.logo b{background:var(--hivis);color:var(--hivis-ink);padding:4px 8px;border-radius:3px}
+.label{font:500 .72rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font:800 clamp(1.8rem,4vw,2.8rem)/1.08 var(--display);margin:0;text-wrap:balance}h2{font:800 1.3rem/1.1 var(--display);margin:0}
+.intro{display:flex;flex-direction:column;gap:10px;padding-block:8px 24px}.intro p{margin:0;max-width:65ch;color:var(--muted)}
+.app{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;align-items:start;padding-bottom:48px}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+label{display:grid;gap:4px;font-weight:600;font-size:.92rem}label small{font-weight:400;color:var(--muted)}
+input,select,textarea{font:inherit;font-size:.95rem;padding:10px 12px;border:1px solid var(--rule);border-radius:5px;background:var(--paper);color:var(--ink);width:100%}
+textarea{resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.themes{display:flex;gap:8px;flex-wrap:wrap}.themes button{width:34px;height:34px;border-radius:50%;border:3px solid transparent;cursor:pointer;padding:0}
+.themes button[aria-pressed="true"]{border-color:var(--ink)}
+.stage{position:sticky;top:max(12px,env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:10px;min-width:0}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.seg{display:flex;border:1px solid var(--rule);border-radius:5px;overflow:hidden}.seg button{font:600 .85rem var(--body);border:0;background:var(--card);color:var(--ink);padding:8px 12px;cursor:pointer}.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.frame{background:var(--card);border:1px solid var(--rule);border-radius:6px;overflow:hidden;display:flex;justify-content:center}
+iframe{border:0;width:100%;height:72vh;min-height:520px;background:#fff;transition:width .2s}
+.frame.phone iframe{width:390px;max-width:100%}
+.order{border-top:2px dashed var(--rule);padding-top:16px;display:flex;flex-direction:column;gap:12px}
+.price{font:800 2rem/1 var(--display)}.price small{font:500 .9rem var(--body);color:var(--muted)}
+.btn{font:700 1rem var(--body);padding:14px 18px;border-radius:5px;border:2px solid var(--hivis);background:var(--hivis);color:var(--hivis-ink);cursor:pointer;text-align:center;text-decoration:none}
+.btn.ghost{background:transparent;border-color:var(--ink);color:var(--ink)}
+.note{font-size:.85rem;color:var(--muted);margin:0}.warn{color:var(--warn)}
+.ok{background:color-mix(in srgb,var(--ok) 14%,var(--card));border:1px solid var(--ok);padding:12px;border-radius:5px;font-size:.92rem}
+.chk{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.88rem}.chk input{width:auto;margin-top:4px}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+@media (max-width:900px){.app{grid-template-columns:1fr}.stage{position:static}iframe{height:640px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><a class="logo" href="../"><b>CALLOUT</b> web</a><span class="label">Instant preview · free</span></nav>
+<div class="intro">
+  <span class="label">Step 1 of 2</span>
+  <h1>Type your details. Watch your website build itself.</h1>
+  <p>This is a working preview of the site you'd get. Change anything and it updates straight away. When you're happy, order it and we'll put it live on your own address, usually within one working day.</p>
+</div>
+<div class="app">
+  <form class="panel" id="f" autocomplete="on">
+    <h2>Your business</h2>
+    <label for="name">Business name<input id="name" name="name" required value="Hartley Plumbing &amp; Heating"></label>
+    <div class="two">
+      <label for="trade">Trade<select id="trade" name="trade"></select></label>
+      <label for="town">Town<input id="town" name="town" required value="Leicester"></label>
+    </div>
+    <label for="phone">Phone number customers should ring<input id="phone" name="phone" type="tel" value="07700 900123"></label>
+    <label for="headline">Headline <small>optional</small><input id="headline" name="headline" placeholder="Leave blank for an automatic one"></label>
+    <label for="services">Services <small>one per line. Add " - " then a short description if you like</small><textarea id="services" name="services" rows="5"></textarea></label>
+    <label for="areas">Areas you cover <small>separate with commas</small><input id="areas" name="areas" value="Leicester, Oadby, Wigston, Birstall, Glenfield"></label>
+    <label for="credentials">Credentials <small>only ones you really hold, e.g. Gas Safe 123456</small><input id="credentials" name="credentials" placeholder="Gas Safe registered, Fully insured"></label>
+    <label for="about">About you <small>two or three sentences</small><textarea id="about" name="about" rows="3" placeholder="How long you've been trading, who does the work, what customers say about you."></textarea></label>
+    <div><span class="label">Colour</span><div class="themes" id="themes" role="group" aria-label="Colour theme"></div></div>
+    <label for="photos">Job photos <small>optional, up to 6, shown only on your screen until you order</small><input id="photos" type="file" accept="image/*" multiple></label>
+
+    <div class="order" id="order">
+      <span class="label">Step 2 of 2 · Order</span>
+      <div class="price">£<span id="p1">249</span> <small>one-off · you own it</small></div>
+      <p class="note">Includes hosting set-up, your quote form, Google basics and two rounds of changes. Optional Care Plan £<span id="p2">20</span>/month for edits and updates. Not VAT registered.</p>
+      <label for="email">Your email <small>we send your order confirmation here</small><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.co.uk"></label>
+      <label for="domain">Website address you want <small>optional, e.g. hartleyplumbing.co.uk. We'll check it's free</small><input id="domain" name="domain" placeholder="yourbusiness.co.uk"></label>
+      <label class="chk"><input type="checkbox" id="care"> Add the Care Plan (£<span id="p3">20</span>/month, cancel any time)</label>
+      <label class="chk"><input type="checkbox" id="agree" required> I confirm the details and credentials above are true, and I agree to the <a href="../terms/">terms</a> and <a href="../privacy/">privacy notice</a>.</label>
+      <button class="btn" type="submit" id="go">Order this website</button>
+      <p class="note">Next you'll see a secure card payment page. Nothing is charged until you pay there.</p>
+      <div id="msg" role="status"></div>
+    </div>
+  </form>
+
+  <div class="stage">
+    <div class="bar"><span class="label">Live preview</span>
+      <div class="seg" role="group" aria-label="Preview size"><button type="button" id="vPhone" aria-pressed="true">Phone</button><button type="button" id="vDesk" aria-pressed="false">Desktop</button></div></div>
+    <div class="frame phone" id="frame"><iframe id="pv" title="Your website preview" sandbox="allow-same-origin"></iframe></div>
+    <p class="note">The preview's buttons and form are switched off. On your live site, the call button rings your phone and the form emails you.</p>
+  </div>
+</div>
+</div>
+<!--TEMPLATE-->
+<script src="../assets/callout-template.js"></script>
+<script src="../assets/config.js"></script>
+<!--/TEMPLATE-->
+<script>
+(function(){
+const C = window.CALLOUT_CONFIG || {}; const T = window.CalloutTemplate;
+const TRADES = {
+ "Plumber":["Leaks and burst pipes - Fast response across the area","Boiler servicing and repairs","Bathroom installations","Radiators and heating","Taps, toilets and showers"],
+ "Electrician":["Fault finding and repairs - Same or next day in most cases","Consumer unit upgrades","Rewires","EV charger installation","EICR landlord certificates"],
+ "Roofer":["Roof repairs and leaks","Flat roofs","Guttering, fascias and soffits","Chimney repairs","New roofs and re-roofs"],
+ "Builder":["Extensions","Loft conversions","Garage conversions","Brickwork and repointing","General building work"],
+ "Painter & decorator":["Interior painting","Exterior painting","Wallpapering","Woodwork and gloss","Commercial decorating"],
+ "Landscaper":["Garden design and landscaping","Patios and paving","Fencing","Turfing","Garden clearance"],
+ "Cleaner":["Regular home cleaning","End of tenancy cleans","Deep cleans","Office cleaning","Oven cleaning"],
+ "Locksmith":["Emergency lockouts - 24/7 call-out","Lock changes and upgrades","uPVC door repairs","Burglary repairs","Key cutting"],
+ "Carpenter":["Fitted wardrobes and shelving","Doors and skirting","Kitchen fitting","Decking","Bespoke joinery"],
+ "Plasterer":["Skimming and re-plastering","Rendering","Artex removal","Ceiling repairs","Dry lining"],
+ "Gardener":["Lawn mowing","Hedge trimming","Garden tidy-ups","Weeding and borders","Green waste removal"],
+ "Other trade":["Your main service","Your second service","Your third service"]
+};
+const $ = id => document.getElementById(id);
+const tradeSel = $("trade");
+Object.keys(TRADES).forEach(t => tradeSel.add(new Option(t, t)));
+let theme = "navy", photos = [], lastTrade = "Plumber";
+try { const qt = new URLSearchParams(location.search).get("trade"); if (qt && TRADES[qt]) { lastTrade = qt; tradeSel.value = qt; } } catch (e) {}
+$("services").value = TRADES[lastTrade].join("\n");
+["p1","p2","p3"].forEach((id,i)=>{ $(id).textContent = i===0 ? (C.LAUNCH_PRICE||249) : (C.CARE_PRICE||20); });
+
+Object.entries(T.THEMES).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.style.background=`linear-gradient(135deg,${v.brand} 60%,${v.accent} 60%)`;b.setAttribute("aria-label",k+" theme");b.setAttribute("aria-pressed",k===theme);b.onclick=()=>{theme=k;[...$("themes").children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();};$("themes").appendChild(b);});
+
+tradeSel.addEventListener("change",()=>{const cur=$("services").value.trim();if(!cur||cur===TRADES[lastTrade].join("\n"))$("services").value=TRADES[tradeSel.value].join("\n");lastTrade=tradeSel.value;render();});
+
+function cfg(){
+  return { name:$("name").value.trim(), trade:tradeSel.value==="Other trade"?"Trade services":tradeSel.value, town:$("town").value.trim(), phone:$("phone").value.trim(),
+    headline:$("headline").value.trim(), areas:$("areas").value, credentials:$("credentials").value, about:$("about").value.trim(), theme,
+    services:$("services").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{const [n,...r]=l.split(" - ");return {name:n.trim(),text:r.join(" - ").trim()};}) };
+}
+let tmr; function render(){clearTimeout(tmr);tmr=setTimeout(()=>{ $("pv").srcdoc = T.buildSite({...cfg(), photos}, {banner:"PREVIEW · not live yet"}); },120);}
+$("f").addEventListener("input",render);
+
+$("photos").addEventListener("change",async e=>{
+  photos=[]; for(const file of [...e.target.files].slice(0,6)){ photos.push({src:await shrink(file,900),caption:""}); } render();
+});
+function shrink(file,max){return new Promise(res=>{const img=new Image();img.onload=()=>{const s=Math.min(1,max/Math.max(img.width,img.height));const c=document.createElement("canvas");c.width=img.width*s;c.height=img.height*s;c.getContext("2d").drawImage(img,0,0,c.width,c.height);res(c.toDataURL("image/jpeg",.8));URL.revokeObjectURL(img.src);};img.src=URL.createObjectURL(file);});}
+
+$("vPhone").onclick=()=>{$("frame").classList.add("phone");$("vPhone").setAttribute("aria-pressed","true");$("vDesk").setAttribute("aria-pressed","false");};
+$("vDesk").onclick=()=>{$("frame").classList.remove("phone");$("vDesk").setAttribute("aria-pressed","true");$("vPhone").setAttribute("aria-pressed","false");};
+
+$("f").addEventListener("submit",e=>{
+  e.preventDefault();
+  const m=$("msg"); const c=cfg(); const email=$("email").value.trim();
+  if(!c.name||!c.town||!email||!$("agree").checked){m.innerHTML='<p class="note warn">Please add your business name, town and email, and tick the confirmation box.</p>';return;}
+  const id="CW"+Date.now().toString(36).toUpperCase()+"-"+T.slugify(c.name).slice(0,20);
+  const order={order_id:id,created:new Date().toISOString(),email,domain:$("domain").value.trim(),care_plan:$("care").checked,photos_supplied:photos.length,config:c};
+  if(C.DEMO_MODE||!C.ORDER_EMAIL){m.innerHTML=`<div class="ok">Demo mode: on the live site this sends order <b>${id}</b> to Callout Web, emails a confirmation to ${email.replace(/</g,"")}, and opens the card payment page.</div>`;return;}
+  // Real submission via FormSubmit (no backend needed). Fields arrive in the owner's inbox; the AI operator reads them.
+  const fm=document.createElement("form"); fm.method="POST"; fm.action="https://formsubmit.co/"+encodeURIComponent(C.ORDER_EMAIL); fm.style.display="none";
+  const add=(k,v)=>{const i=document.createElement("input");i.type="hidden";i.name=k;i.value=v;fm.appendChild(i);};
+  add("_next",(C.SITE_URL||location.origin)+"/order/pay/?id="+encodeURIComponent(id)+(order.care_plan?"&care=1":""));
+  add("_autoresponse","Thanks for ordering your website from Callout Web. Your order reference is "+id+". Next step: complete payment on the page you were sent to. Once paid, reply to this email with up to 6 job photos and we'll put your site live, usually within one working day.");
+  add("email",email); add("business",c.name); add("order_id",id); add("order_json",JSON.stringify(order));
+  document.body.appendChild(fm); fm.submit();
+});
+render();
+})();
+</script>
+</body>
+</html>
