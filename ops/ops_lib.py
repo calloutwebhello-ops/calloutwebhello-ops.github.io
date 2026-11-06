@@ -33,7 +33,9 @@ def extract_order_json(body):
     Find the first balanced {...} after the label and parse it."""
     i = body.find("order_json")
     if i < 0:
-        return None
+        i = body.find('{"order_id"')   # some form services relabel fields; fall back to the JSON itself
+        if i < 0:
+            return None
     start = body.find("{", i)
     if start < 0:
         return None

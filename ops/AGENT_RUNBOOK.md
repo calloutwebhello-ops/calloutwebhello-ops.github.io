@@ -7,9 +7,12 @@ The owner (Joshua Spiers) only handles: approvals, identity/legal, refunds, and 
 | System | What it does | Access the agent needs |
 |---|---|---|
 | Website (this repo) on GitHub Pages | Marketing pages, SEO guides, instant preview tool, client sites under `/sites/` | Git push to the repo |
-| FormSubmit → Gmail (calloutweb.hello@gmail.com) | Delivers orders (`CW ORDER …` subject) with an `order_json` field | Gmail connector: search + read + send/draft |
+| Web3Forms → Gmail (calloutweb.hello@gmail.com) | Delivers orders (`CW ORDER …` subject) with an `order_json` field; customers can also email orders directly as a fallback | Gmail connector: search, read, label, send/draft |
 | Stripe Payment Links | Takes payment; `client_reference_id` = order ID | Stripe connector (read payments) or Stripe receipt emails in Gmail |
-| `ops/ledger.csv` | Source of truth for orders, payments and status | Repo |
+| Gmail labels + Stripe | **The only places customer data is stored.** Order status = Gmail label on the order email: `CW/Awaiting payment`, `CW/Paid`, `CW/Needs info`, `CW/Live`, `CW/Escalate`, `CW/Abandoned`. Money = Stripe. | Gmail + Stripe connectors |
+
+## Customer data rule
+Never commit orders, ledgers, reports or customer emails to GitHub (the repo is public). `ops/ledger.csv` and `ops/orders/` are scratch copies built fresh in the run folder from Gmail labels and deleted at the end of every run. The daily report is emailed to the owner, not committed. Client site files under `sites/` are public by design and contain only what the customer chose to publish.
 
 ## Daily run (scheduled, once each weekday)
 1. **Collect new orders.** In Gmail search `subject:"CW ORDER" newer_than:2d`. For each order ID not already in `ops/ledger.csv`: save the `order_json` value verbatim to `ops/orders/<ORDER_ID>.json`, add a ledger row with status `awaiting_payment`.
@@ -23,7 +26,7 @@ The owner (Joshua Spiers) only handles: approvals, identity/legal, refunds, and 
 4. **Chase unpaid orders** once only: 2 days after the order, send template P1. After 7 days, status → `abandoned`.
 5. **Answer support emails** (anything else in the inbox from customers) using `ops/SUPPORT_FAQ.md`. Change requests from paid customers (within 2 rounds, or any time on Care Plan): edit `ops/orders/<ID>.json` `config`, re-run fulfil, push, reply with the link.
 6. **ESCALATE to owner** (do not act; label the email `ESCALATE` and list it in the report): refund requests, complaints, chargebacks, legal threats, anything about money not covered above, requests to add claims/credentials without evidence, anything you're unsure about.
-7. **Report.** Append to `ops/reports/<YYYY-MM-DD>.md`: new orders, payments (verified £), sites delivered, open issues, escalations. Update the business workbook's Sales tab if available.
+7. **Report.** Email the report to the owner (subject `Callout Web report YYYY-MM-DD`): new orders, payments (verified £), sites delivered, open issues, escalations. Then delete the run's scratch files.
 
 ## Weekly (Monday) — growth
 - Publish ONE new genuinely useful guide (new trade or a real question tradespeople ask), via `tools/content.py` + `python3 tools/build_pages.py`. Quality over volume: no thin town-swap pages (Google treats scaled low-value pages as spam).

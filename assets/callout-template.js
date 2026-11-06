@@ -99,7 +99,10 @@ ${about ? `<section class="s"><h2>About ${esc(name)}</h2><p>${esc(about)}</p></s
 </main>
 <div class="w"><footer>${esc(name)}${town ? " · " + esc(town) : ""}${phone ? " · " + esc(phone) : ""}${cfg.legal ? " · " + esc(cfg.legal) : ""}<br>Website by <a href="https://calloutwebhello-ops.github.io">Callout Web</a></footer></div>
 ${phone ? `<div class="callbar"><a href="tel:${esc(tel)}">Tap to call ${esc(phone)}</a></div>` : ""}
-<script type="application/ld+json">${schema}</script>`;
+<script type="application/ld+json">${schema}</script>
+${formEmail ? `<script>(function(){var f=document.querySelector('#quote form');if(!f||!window.fetch)return;f.addEventListener('submit',function(e){e.preventDefault();var b=f.querySelector('button');b.disabled=true;b.textContent='Sending…';
+var done=function(ok){var p=document.createElement('p');p.setAttribute('role','status');p.textContent=ok?'Thanks, your request has been sent. We\\'ll be in touch soon.':'Sorry, the form didn\\'t send. Please call us${phone ? " on " + esc(phone).replace(/'/g, "") : ""} instead.';f.replaceWith(p);};
+fetch(f.action.replace('formsubmit.co/','formsubmit.co/ajax/'),{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}}).then(function(r){done(r.ok);}).catch(function(){done(false);});});})();</script>` : ""}`;
 
     const title = `${name} | ${trade}${town ? " in " + town : ""}`;
     return `<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
