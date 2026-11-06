@@ -151,6 +151,7 @@ $("f").addEventListener("submit",e=>{
   // Real submission via FormSubmit (no backend needed). Fields arrive in the owner's inbox; the AI operator reads them.
   const fm=document.createElement("form"); fm.method="POST"; fm.action="https://formsubmit.co/"+encodeURIComponent(C.ORDER_EMAIL); fm.style.display="none";
   const add=(k,v)=>{const i=document.createElement("input");i.type="hidden";i.name=k;i.value=v;fm.appendChild(i);};
+  add("_subject","CW ORDER "+id+" "+c.name); add("_template","box"); add("_captcha","false"); add("_honey","");
   add("_next",(C.SITE_URL||location.origin)+"/order/pay/?id="+encodeURIComponent(id)+(order.care_plan?"&care=1":""));
   add("_autoresponse","Thanks for ordering your website from Callout Web. Your order reference is "+id+". Next step: complete payment on the page you were sent to. Once paid, reply to this email with up to 6 job photos and we'll put your site live, usually within one working day.");
   add("email",email); add("business",c.name); add("order_id",id); add("order_json",JSON.stringify(order));
