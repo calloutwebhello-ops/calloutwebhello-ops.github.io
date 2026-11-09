@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Match verified payments to orders and mark them paid in the ledger.
 
-Usage: python3 match_payments.py <payments.json> <repo_dir> [--launch-price 249]
+Usage: python3 match_payments.py <payments.json> <repo_dir>
 payments.json = [{"id","status","amount_gbp","email","client_reference_id","created"}...]
 Only payments with status "succeeded"/"paid"/"complete" count.
-Match order: client_reference_id == order_id, else same customer email AND amount == launch price
+Match order: client_reference_id == order_id, else same customer email AND amount == that order's plan price (Starter 19, Pro 39, Own it 249)
 AND exactly one awaiting order for that email (otherwise it's ambiguous and is reported, not matched).
 Never marks anything paid without a payment record. Prints a JSON summary."""
 import json, sys, pathlib
@@ -12,9 +12,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from ops_lib import read_ledger, write_ledger, load_json
 
 payments, repo = load_json(sys.argv[1]), pathlib.Path(sys.argv[2])
-price = 249.0
-if "--launch-price" in sys.argv:
-    price = float(sys.argv[sys.argv.index("--launch-price") + 1])
+PLAN_PRICES = {"starter": 19.0, "pro": 39.0, "own": 249.0}
 rows = read_ledger(repo)
 by_id = {r["order_id"]: r for r in rows}
 used = {r["notes"].split("payment:")[1].split()[0] for r in rows if "payment:" in r.get("notes", "")}
@@ -31,7 +29,9 @@ for p in payments:
     if row is None:
         cands = [r for r in rows if r["status"] == "awaiting_payment"
                  and r["customer_email"].lower() == str(p.get("email", "")).lower()]
-        if len(cands) == 1 and abs(float(p.get("amount_gbp") or 0) - price) < 0.01:
+        amt = float(p.get("amount_gbp") or 0)
+        want = PLAN_PRICES.get((cands[0].get("product") or "").split(" ")[0].lower()) if len(cands) == 1 else None
+        if len(cands) == 1 and ((want and abs(amt - want) < 0.01) or (not want and any(abs(amt - v) < 0.01 for v in PLAN_PRICES.values()))):
             row, how = cands[0], "email+amount"
         else:
             unmatched.append({"payment": pid, "email": p.get("email"), "amount_gbp": p.get("amount_gbp"),

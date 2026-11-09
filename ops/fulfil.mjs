@@ -38,8 +38,12 @@ const photos = fs.readdirSync(path.join(siteDir, "img"))
   .filter(f => /\.(jpe?g|png|webp)$/i.test(f)).sort().slice(0, 6)
   .map(f => ({ src: "img/" + f, caption: "" }));
 
-const cfg = { ...c, photos, formEmail: process.argv.includes("--preview") ? "" : order.email, legal: c.legal || "" };
-const htmlOut = T.buildSite(cfg, { placeholders: false, banner: process.argv.includes("--preview") ? "PREVIEW · not live yet" : "" });
+const conf = fs.readFileSync(path.join(ROOT, "assets/config.js"), "utf8");
+const pick = k => (conf.match(new RegExp(k + ':\\s*"([^"]*)"')) || [])[1] || "";
+const SITE_URL = pick("SITE_URL"), LEADS_CC = pick("LEADS_CC");
+// formEmail: the customer's FormSubmit alias once activated (order.form_alias), otherwise their email.
+const cfg = { ...c, photos, formEmail: process.argv.includes("--preview") ? "" : (order.form_alias || order.email), leadsCc: LEADS_CC, legal: c.legal || "" };
+const htmlOut = T.buildSite(cfg, { placeholders: false, siteUrl: `${SITE_URL}/sites/${slug}/`, banner: process.argv.includes("--preview") ? "PREVIEW · not live yet" : "" });
 fs.writeFileSync(path.join(siteDir, "index.html"), htmlOut);
 
 let standalone = null;
@@ -53,4 +57,4 @@ if (order.domain) {
     for (const p of photos) fs.copyFileSync(path.join(siteDir, p.src), path.join(standalone, p.src));
   }
 }
-console.log(JSON.stringify({ ok: true, order_id: order.order_id, slug, site: `sites/${slug}/`, photos: photos.length, standalone }, null, 2));
+console.log(JSON.stringify({ ok: true, order_id: order.order_id, plan: order.plan || (order.care_plan ? "own+care" : "own"), slug, site: `sites/${slug}/`, photos: photos.length, standalone }, null, 2));

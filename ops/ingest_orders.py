@@ -31,7 +31,7 @@ for m in inbox:
     cfg = order.get("config", {})
     rows.append({"order_id": oid, "created": order.get("created", m.get("date", "")),
                  "business": cfg.get("name", ""), "customer_email": order.get("email", ""),
-                 "product": "Launch Site" + (" + Care Plan" if order.get("care_plan") else ""),
+                 "product": {"starter": "Starter", "pro": "Pro", "own": "Own"}.get(order.get("plan"), "Own") + (" + legacy Care Plan" if order.get("care_plan") else ""),
                  "amount_gbp": "", "status": "awaiting_payment", "paid_date": "", "live_url": "", "notes": ""})
     known.add(oid)
     new.append(oid)

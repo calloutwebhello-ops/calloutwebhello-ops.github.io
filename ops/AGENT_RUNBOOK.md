@@ -49,7 +49,9 @@ Never commit orders, ledgers, reports or customer emails to GitHub (the repo is 
 > 1. Google: open your Google Business Profile (search your business name on Google while signed in, or go to business.google.com), choose Edit profile > Contact > Website, and paste {url}. No profile yet? Create one free at business.google.com.
 > 2. Put {url} on your Facebook page, Yell listing, van, quotes and invoices.
 > 3. Ask your last few happy customers for a Google review.
-> You have two rounds of changes included: just reply with what you'd like changed. Thanks for choosing Callout Web.
+> Need a change? Just reply to this email.
+> Know another tradesperson without a website? Send them {referral_link}. When they join a monthly plan, you both get your next month free.
+> Thanks for choosing Callout Web.
 
 `domain_part` (if they gave a domain): "To use {domain}: buy it in your own name (about £10/year, e.g. at Cloudflare or Namecheap), then add these DNS records: CNAME `www` → `<github-user>.github.io`, and A records for the bare domain → 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153. Reply when done and we'll switch it on."
 
@@ -58,3 +60,23 @@ Never commit orders, ledgers, reports or customer emails to GitHub (the repo is 
 
 **N1 — Missing info**
 > Hi {name}, thanks for your order {order_id}. Before we publish, please reply with: {problems_in_plain_english}.
+
+## Plans (from 9 Nov 2026)
+| Plan | Price | Stripe | What we deliver |
+|---|---|---|---|
+| Starter | £19/month, no setup, cancel any time | live payment link (plan=starter) | Site, hosting, small edits by email, monthly enquiry report |
+| Pro | £39/month | live payment link (plan=pro) | Starter + up to 5 extra service/town pages, 1 Google Business Profile post drafted each month (sent to the customer to paste), review-request kit, priority edits |
+| Own it | £249 one-off | live payment link (plan=own) | Site handed over, 2 rounds of changes in 30 days, then £25 per edit (escalate for a payment link) |
+Legacy: orders with `care_plan: true` are the old £249 + £20/month offer; honour what they bought.
+
+## Monthly enquiry report (Starter/Pro) — 1st working day of each month
+Client quote forms CC `calloutweb.hello+leads@gmail.com`. Count last month's FormSubmit copies per client site (match the site name in the email), email each subscriber one line: "In <month>, your website sent you N quote requests." Never forward or reuse the enquirers' details; delete lead copies older than 90 days.
+
+## Cancellations
+Customer emails to cancel: reply confirming, label CW/Escalate so the owner cancels the Stripe subscription (Claude has no write access to subscriptions), and after the paid month ends, remove `sites/<slug>/` and send them the site files if they asked.
+
+## Referrals
+Each customer's referral link is `https://calloutwebhello-ops.github.io/preview/?ref=<their slug>` — include it in the welcome (D1) email: "Know another tradesperson? When they join a monthly plan using your link, you both get your next month free." When a paid order's `ref` matches a live customer's slug, put "Referral credit: <both businesses>" under Needs owner (the owner applies the free month in Stripe).
+
+## Outreach (OFF until OUTREACH_APPROVED is true in assets/config.js)
+`ops/outreach.py` turns a CSV of limited companies without websites into personalised preview links and email drafts (max 10/run, generic business addresses only, opt-out line, suppression list). Never run it while the flag is false. Never email sole traders or partnerships unsolicited.

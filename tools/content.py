@@ -12,7 +12,7 @@ GUIDES = {
         ("Separate emergency and planned work", "Leaks and no-hot-water calls want speed; bathrooms and boiler swaps want photos and a quote form. Give each its own section."),
         ("Real job photos", "A finished bathroom or a neat boiler install says more than any paragraph.")],
   avoid="Stock photos of smiling models in overalls, prices you can't stick to, and claims like '30 minute response' unless you really can.",
-  demo=dict(name="Hartley Plumbing & Heating (demo)", town="Leicester", services=["Leaks and burst pipes - Fast response across the area","Boiler servicing and repairs","Bathroom installations","Radiators and heating"], credentials=["Example: Gas Safe registered"])),
+  demo=dict(name="Hartley Plumbing & Heating (demo)", town="London", services=["Leaks and burst pipes - Fast response across the area","Boiler servicing and repairs","Bathroom installations","Radiators and heating"], credentials=["Example: Gas Safe registered"])),
  "electricians": dict(
   trade="Electrician", plural="electricians", theme="slate",
   title="Website for electricians: a simple guide for UK sparks",
@@ -23,7 +23,7 @@ GUIDES = {
         ("Areas covered and a quote form", "A form that asks for postcode and job type saves you call-backs."),
         ("Photos of neat work", "A tidy consumer unit is a selling point. Show it.")],
   avoid="Listing qualifications you don't hold, and pages full of technical jargon that customers don't understand.",
-  demo=dict(name="Marlow Brook Electrical (demo)", town="Leicester", services=["Fault finding and repairs","Consumer unit upgrades","EV charger installation","EICR landlord certificates"], credentials=["Example: NICEIC Approved"])),
+  demo=dict(name="Marlow Brook Electrical (demo)", town="Manchester", services=["Fault finding and repairs","Consumer unit upgrades","EV charger installation","EICR landlord certificates"], credentials=["Example: NICEIC Approved"])),
  "roofers": dict(
   trade="Roofer", plural="roofers", theme="red",
   title="Website for roofers: win bigger jobs with proof of your work",
@@ -34,7 +34,7 @@ GUIDES = {
         ("Insurance and memberships", "Public liability insurance and any trade body membership (for example a scheme like CompetentRoofer, if you're registered) reassure customers."),
         ("Areas covered", "List towns and villages so local searches find you.")],
   avoid="Pressure tactics like 'limited time offers', and vague promises. Roofing customers are already cautious.",
-  demo=dict(name="Ridgeline Roofing (demo)", town="Nottingham", services=["Roof repairs and leaks","Flat roofs","Guttering, fascias and soffits","New roofs and re-roofs"], credentials=["Example: Fully insured","Example: 10-year workmanship guarantee"])),
+  demo=dict(name="Ridgeline Roofing (demo)", town="Glasgow", services=["Roof repairs and leaks","Flat roofs","Guttering, fascias and soffits","New roofs and re-roofs"], credentials=["Example: Fully insured","Example: 10-year workmanship guarantee"])),
  "builders": dict(
   trade="Builder", plural="builders", theme="black",
   title="Website for builders: what homeowners look for before they call",
@@ -45,7 +45,7 @@ GUIDES = {
         ("A quote form that asks the right things", "Job type, postcode, rough timescale and budget band save you wasted visits."),
         ("Areas covered", "Name the towns you work in.")],
   avoid="Using other builders' photos, and fixed prices for jobs that need a survey.",
-  demo=dict(name="Ashby Build & Extend (demo)", town="Derby", services=["Extensions","Loft conversions","Garage conversions","Brickwork and repointing"], credentials=["Example: £5m public liability"])),
+  demo=dict(name="Ashby Build & Extend (demo)", town="Leeds", services=["Extensions","Loft conversions","Garage conversions","Brickwork and repointing"], credentials=["Example: £5m public liability"])),
  "painters-and-decorators": dict(
   trade="Painter & decorator", plural="painters and decorators", theme="purple",
   title="Website for painters and decorators: let the photos sell for you",
@@ -56,7 +56,7 @@ GUIDES = {
         ("Availability", "If you book up weeks ahead, say so. It shows you're in demand and filters out urgent jobs."),
         ("Areas covered and a quote form", "Ask for room count and postcode.")],
   avoid="Long paragraphs nobody reads. Let the pictures do the talking.",
-  demo=dict(name="Fernlea Decorating (demo)", town="Leicester", services=["Interior painting","Exterior painting","Wallpapering","Commercial decorating"], credentials=["Example: Fully insured"])),
+  demo=dict(name="Fernlea Decorating (demo)", town="Cardiff", services=["Interior painting","Exterior painting","Wallpapering","Commercial decorating"], credentials=["Example: Fully insured"])),
  "landscapers": dict(
   trade="Landscaper", plural="landscapers and gardeners", theme="green",
   title="Website for landscapers and gardeners: turn photos into enquiries",
@@ -67,7 +67,7 @@ GUIDES = {
         ("Waste carrier registration, if you remove green waste", "Businesses that carry waste generally need to be registered with the Environment Agency (in England). Show your number if you have one."),
         ("Areas covered", "List towns and villages.")],
   avoid="Photos that aren't your work, and fixed prices for jobs that depend on the size and state of the garden.",
-  demo=dict(name="Greenway Gardens & Landscapes (demo)", town="Loughborough", services=["Patios and paving","Fencing","Turfing","Garden maintenance"], credentials=["Example: Fully insured"])),
+  demo=dict(name="Greenway Gardens & Landscapes (demo)", town="Bristol", services=["Patios and paving","Fencing","Turfing","Garden maintenance"], credentials=["Example: Fully insured"])),
  "cleaners": dict(
   trade="Cleaner", plural="cleaners and cleaning companies", theme="slate",
   title="Website for cleaners: get regular clients, not one-off calls",
@@ -78,7 +78,7 @@ GUIDES = {
         ("A booking request form", "Ask for postcode, property size and how often they want a cleaner."),
         ("Areas covered", "Name the towns.")],
   avoid="Unrealistic promises such as 'guaranteed deposit back', which you can't control.",
-  demo=dict(name="Brightside Cleaning (demo)", town="Nottingham", services=["Regular home cleaning","End of tenancy cleans","Deep cleans","Office cleaning"], credentials=["Example: Fully insured"])),
+  demo=dict(name="Brightside Cleaning (demo)", town="Newcastle", services=["Regular home cleaning","End of tenancy cleans","Deep cleans","Office cleaning"], credentials=["Example: Fully insured"])),
  "locksmiths": dict(
   trade="Locksmith", plural="locksmiths", theme="black",
   title="Website for locksmiths: be the one locked-out customers trust",
@@ -89,16 +89,19 @@ GUIDES = {
         ("Memberships you hold", "For example the Master Locksmiths Association (MLA), but only if you're a member."),
         ("Non-emergency services", "Lock upgrades, uPVC repairs and safes bring planned, higher-margin work.")],
   avoid="Copying the 'national network' style of the big call centres. Being local is your advantage.",
-  demo=dict(name="Keyline Locksmiths (demo)", town="Leicester", services=["Emergency lockouts","Lock changes and upgrades","uPVC door repairs","Burglary repairs"], credentials=["Example: DBS checked"])),
+  demo=dict(name="Keyline Locksmiths (demo)", town="Belfast", services=["Emergency lockouts","Lock changes and upgrades","uPVC door repairs","Burglary repairs"], credentials=["Example: DBS checked"])),
 }
 
 COST_GUIDE = dict(
  title="How much does a tradesman website cost in the UK?",
  lead="Prices range from free DIY builders to £2,000+ agency sites. For most one- to three-person trade firms, a simple, fast, one-page site with a call button and a quote form is enough, and it shouldn't cost more than a few hundred pounds.",
- rows=[("DIY website builder (Wix, Squarespace etc.)","£0–£25/month","You do it yourself. Monthly fees add up, and it takes time to make it look good."),
-       ("Monthly 'website for trades' plans","around £30/month, often with a minimum term","No big upfront cost. Over 2 years that's £700+, and you may not own the site."),
-       ("Freelancer or small agency","£500–£2,000+ one-off","Custom work. Quality and support vary a lot."),
-       ("Callout Web Launch Site","£249 one-off, optional £20/month care","One-page site, hosted free, domain in your name, preview before you pay.")],
+ rows=[("Free DIY trade website builders","£0, or around £100/year for a custom domain","You build it yourself. Free versions usually show the provider's branding and an address on their domain."),
+       ("DIY website builder (Wix, Squarespace etc.)","£0–£25/month","You do it yourself. Monthly fees add up, and it takes time to make it look good."),
+       ("Pay-monthly trade web designers","around £30/month","No big upfront cost. Check the minimum term and whether you own the domain."),
+       ("Directory-style website packages","e.g. £399 upfront + £36/month (Yell Standard, per Expert Market review, 2023)","Done for you. Higher total cost; check contract length and extras."),
+       ("Bespoke agency","£500–£5,000+ upfront, often plus a monthly plan","Custom work and more pages. Often a 12-month minimum term."),
+       ("Callout Web","£19/month (no setup fee, no contract) or £249 one-off","Done for you, preview before you pay, domain in your name, monthly enquiry report.")],
+ sources=[("Expert Market: Yell website review","https://www.expertmarket.com/uk/web-design/yell-website-review"),("Websites 4 Trades pricing","https://www.websites-4-trades.co.uk/"),("Powered Now: Here Is My Work","https://powerednow.com/hereismywork/")],
  notes=["Your domain name (e.g. yourbusiness.co.uk) usually costs around £10 a year, and it should always be registered in your name.",
         "Hosting for a simple static site can be free on services like Cloudflare Pages or GitHub Pages.",
         "Ask any provider: who owns the domain, can I take the site if I leave, and is there a minimum term?"]

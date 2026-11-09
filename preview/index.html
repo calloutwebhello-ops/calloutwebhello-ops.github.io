@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Instant Website Preview for Tradespeople | Callout Web</title>
-<meta name="description" content="Type your business details and see your new trade website instantly. Free to try. Go live for £249 one-off, built and hosted for you.">
+<meta name="description" content="Type your business details and see your new trade website instantly. Free to try. Live from £19/month with no setup fee and no contract, anywhere in the UK.">
 <link rel="canonical" href="https://calloutwebhello-ops.github.io/preview/">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
 <!--CSS-->
@@ -35,7 +35,7 @@ textarea{resize:vertical}
 iframe{border:0;width:100%;height:72vh;min-height:520px;background:#fff;transition:width .2s}
 .frame.phone iframe{width:390px;max-width:100%}
 .order{border-top:2px dashed var(--rule);padding-top:16px;display:flex;flex-direction:column;gap:12px}
-.price{font:800 2rem/1 var(--display)}.price small{font:500 .9rem var(--body);color:var(--muted)}
+.plans{border:0;margin:0;padding:0;display:grid;gap:8px}.plans legend{margin-bottom:8px}.plan{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--rule);border-radius:6px;padding:12px;cursor:pointer;font-weight:400}.plan input{width:auto;margin-top:4px}.plan span{display:grid;gap:2px}.plan small{color:var(--muted);font-size:.85rem}.plan:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .btn{font:700 1rem var(--body);padding:14px 18px;border-radius:5px;border:2px solid var(--hivis);background:var(--hivis);color:var(--hivis-ink);cursor:pointer;text-align:center;text-decoration:none}
 .btn.ghost{background:transparent;border-color:var(--ink);color:var(--ink)}
 .note{font-size:.85rem;color:var(--muted);margin:0}.warn{color:var(--warn)}
@@ -51,7 +51,7 @@ iframe{border:0;width:100%;height:72vh;min-height:520px;background:#fff;transiti
 <div class="intro">
   <span class="label">Step 1 of 2</span>
   <h1>Type your details. Watch your website build itself.</h1>
-  <p>This is a working preview of the site you'd get. Change anything and it updates straight away. When you're happy, order it and we'll put it live on your own address, usually within one working day.</p>
+  <p>This is a working preview of the site you'd get. Change anything and it updates straight away. When you're happy, pick a plan and we'll put it live, usually within one working day. No setup fee on monthly plans, no contract.</p>
 </div>
 <div class="app">
   <form class="panel" id="f" autocomplete="on">
@@ -59,24 +59,30 @@ iframe{border:0;width:100%;height:72vh;min-height:520px;background:#fff;transiti
     <label for="name">Business name<input id="name" name="name" required value="Hartley Plumbing &amp; Heating"></label>
     <div class="two">
       <label for="trade">Trade<select id="trade" name="trade"></select></label>
-      <label for="town">Town<input id="town" name="town" required value="Leicester"></label>
+      <label for="town">Town<input id="town" name="town" required value="Bristol" placeholder="e.g. Bristol"></label>
     </div>
     <label for="phone">Phone number customers should ring<input id="phone" name="phone" type="tel" value="07700 900123"></label>
     <label for="headline">Headline <small>optional</small><input id="headline" name="headline" placeholder="Leave blank for an automatic one"></label>
     <label for="services">Services <small>one per line. Add " - " then a short description if you like</small><textarea id="services" name="services" rows="5"></textarea></label>
-    <label for="areas">Areas you cover <small>separate with commas</small><input id="areas" name="areas" value="Leicester, Oadby, Wigston, Birstall, Glenfield"></label>
+    <label for="areas">Areas you cover <small>separate with commas</small><input id="areas" name="areas" value="Bristol, Bath, Clevedon, Keynsham, Portishead"></label>
     <label for="credentials">Credentials <small>only ones you really hold, e.g. Gas Safe 123456</small><input id="credentials" name="credentials" placeholder="Gas Safe registered, Fully insured"></label>
     <label for="about">About you <small>two or three sentences</small><textarea id="about" name="about" rows="3" placeholder="How long you've been trading, who does the work, what customers say about you."></textarea></label>
+    <label for="hours">Opening hours <small>optional, e.g. Mon–Sat 8am–6pm</small><input id="hours" name="hours" placeholder="Mon–Sat 8am–6pm"></label>
+    <label class="chk"><input type="checkbox" id="whatsapp" checked> Show a WhatsApp button (uses the mobile number above)</label>
+    <label class="chk"><input type="checkbox" id="emergency"> I offer 24/7 emergency callouts</label>
     <div><span class="label">Colour</span><div class="themes" id="themes" role="group" aria-label="Colour theme"></div></div>
     <label for="photos">Job photos <small>optional, up to 6, shown only on your screen until you order</small><input id="photos" type="file" accept="image/*" multiple></label>
 
     <div class="order" id="order">
       <span class="label">Step 2 of 2 · Order</span>
-      <div class="price">£<span id="p1">249</span> <small>one-off · you own it</small></div>
-      <p class="note">Includes hosting set-up, your quote form, Google basics and two rounds of changes. Optional Care Plan £<span id="p2">20</span>/month for edits and updates. Not VAT registered.</p>
+      <fieldset class="plans" id="plans"><legend class="label">Choose a plan</legend>
+        <label class="plan"><input type="radio" name="plan" value="starter" checked><span><b>Starter · £19/month</b><small>Site built, hosted and looked after. Quote form, call and WhatsApp buttons, small edits by email, monthly enquiry report. No setup fee, cancel any time.</small></span></label>
+        <label class="plan"><input type="radio" name="plan" value="pro"><span><b>Pro · £39/month</b><small>Everything in Starter plus up to 5 extra service or town pages, a Google Business Profile post written for you every month, a review-request kit and priority changes.</small></span></label>
+        <label class="plan"><input type="radio" name="plan" value="own"><span><b>Own it · £249 one-off</b><small>Built and handed over with free hosting. Two rounds of changes in the first 30 days, then edits £25 each.</small></span></label>
+      </fieldset>
+      <p class="note">Not VAT registered, so no VAT is added. Monthly plans can be cancelled any time by email.</p>
       <label for="email">Your email <small>we send your order confirmation here</small><input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.co.uk"></label>
       <label for="domain">Website address you want <small>optional, e.g. hartleyplumbing.co.uk. We'll check it's free</small><input id="domain" name="domain" placeholder="yourbusiness.co.uk"></label>
-      <label class="chk"><input type="checkbox" id="care"> Add the Care Plan (£<span id="p3">20</span>/month, cancel any time)</label>
       <label class="chk"><input type="checkbox" id="agree" required> I confirm the details and credentials above are true, and I agree to the <a href="../terms/">terms</a> and <a href="../privacy/">privacy notice</a>.</label>
       <button class="btn" type="submit" id="go">Order this website</button>
       <p class="note">Next you'll see a secure card payment page. Nothing is charged until you pay there.</p>
@@ -119,7 +125,15 @@ Object.keys(TRADES).forEach(t => tradeSel.add(new Option(t, t)));
 let theme = "navy", photos = [], lastTrade = "Plumber";
 try { const qt = new URLSearchParams(location.search).get("trade"); if (qt && TRADES[qt]) { lastTrade = qt; tradeSel.value = qt; } } catch (e) {}
 $("services").value = TRADES[lastTrade].join("\n");
-["p1","p2","p3"].forEach((id,i)=>{ $(id).textContent = i===0 ? (C.LAUNCH_PRICE||249) : (C.CARE_PRICE||20); });
+// Prefill from link: ?name=&trade=&town=&phone=&areas=&ref= (used by personalised preview links and referrals)
+let REF="";
+try{const q=new URLSearchParams(location.search);const set=(k,id)=>{const v=q.get(k);if(v)$(id).value=v.slice(0,120);};
+  set("name","name");set("town","town");set("phone","phone");set("areas","areas");
+  if(q.get("trade")&&!TRADES[q.get("trade")]){tradeSel.value="Other trade";}
+  REF=(q.get("ref")||"").replace(/[^A-Za-z0-9_-]/g,"").slice(0,40);
+  if(q.get("name")&&!q.get("areas")&&q.get("town"))$("areas").value=q.get("town");
+  const pl=q.get("plan");if(pl){const r=document.querySelector('input[name=plan][value="'+pl.replace(/[^a-z]/g,"")+'"]');if(r)r.checked=true;}
+}catch(e){}
 
 Object.entries(T.THEMES).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.style.background=`linear-gradient(135deg,${v.brand} 60%,${v.accent} 60%)`;b.setAttribute("aria-label",k+" theme");b.setAttribute("aria-pressed",k===theme);b.onclick=()=>{theme=k;[...$("themes").children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();};$("themes").appendChild(b);});
 
@@ -128,6 +142,7 @@ tradeSel.addEventListener("change",()=>{const cur=$("services").value.trim();if(
 function cfg(){
   return { name:$("name").value.trim(), trade:tradeSel.value==="Other trade"?"Trade services":tradeSel.value, town:$("town").value.trim(), phone:$("phone").value.trim(),
     headline:$("headline").value.trim(), areas:$("areas").value, credentials:$("credentials").value, about:$("about").value.trim(), theme,
+    hours:$("hours").value.trim(), whatsapp:$("whatsapp").checked, emergency:$("emergency").checked,
     services:$("services").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{const [n,...r]=l.split(" - ");return {name:n.trim(),text:r.join(" - ").trim()};}) };
 }
 let tmr; function render(){clearTimeout(tmr);tmr=setTimeout(()=>{ $("pv").srcdoc = T.buildSite({...cfg(), photos}, {banner:"PREVIEW · not live yet"}); },120);}
@@ -146,11 +161,12 @@ $("f").addEventListener("submit",e=>{
   const m=$("msg"); const c=cfg(); const email=$("email").value.trim();
   if(!c.name||!c.town||!email||!$("agree").checked){m.innerHTML='<p class="note warn">Please add your business name, town and email, and tick the confirmation box.</p>';return;}
   const id="CW"+Date.now().toString(36).toUpperCase()+"-"+T.slugify(c.name).slice(0,20);
-  const order={order_id:id,created:new Date().toISOString(),email,domain:$("domain").value.trim(),care_plan:$("care").checked,photos_supplied:photos.length,config:c};
+  const plan=(document.querySelector("input[name=plan]:checked")||{}).value||"starter";
+  const order={order_id:id,created:new Date().toISOString(),email,plan,ref:REF,domain:$("domain").value.trim(),photos_supplied:photos.length,config:c};
   if(C.DEMO_MODE||!C.ORDER_EMAIL){m.innerHTML=`<div class="ok">Demo mode: on the live site this sends order <b>${id}</b> to Callout Web, emails a confirmation to ${email.replace(/</g,"")}, and opens the card payment page.</div>`;return;}
   // Real submission via Web3Forms (no backend). The order lands in the business inbox, where the AI operator reads it.
   // If the form service fails, the customer gets an email-it-to-us fallback, so no order is lost silently.
-  const payUrl=(C.SITE_URL||location.origin)+"/order/pay/?id="+encodeURIComponent(id)+(order.care_plan?"&care=1":"");
+  const payUrl=(C.SITE_URL||location.origin)+"/order/pay/?id="+encodeURIComponent(id)+"&plan="+plan;
   const json=JSON.stringify(order);
   const fallback=()=>{
     const body="Please process my Callout Web order. Reference: "+id+"\n\norder_json: "+json;
@@ -163,7 +179,7 @@ $("f").addEventListener("submit",e=>{
   $("go").disabled=true; m.innerHTML='<p class="note">Sending your order…</p>';
   const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),15000);
   fetch("https://api.web3forms.com/submit",{method:"POST",signal:ctl.signal,headers:{"Content-Type":"application/json",Accept:"application/json"},
-    body:JSON.stringify({access_key:C.WEB3FORMS_KEY,subject:"CW ORDER "+id+" "+c.name,from_name:"Callout Web orders",replyto:email,
+    body:JSON.stringify({access_key:C.WEB3FORMS_KEY,subject:"CW ORDER "+id+" "+c.name+" ["+plan+"]",from_name:"Callout Web orders",replyto:email,
       email,business:c.name,order_id:id,order_json:json,botcheck:""})})
     .then(r=>r.json()).then(d=>{clearTimeout(t); if(d&&d.success){location.href=payUrl;} else fallback();})
     .catch(()=>{clearTimeout(t);fallback();});

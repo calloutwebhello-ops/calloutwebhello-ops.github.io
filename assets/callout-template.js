@@ -32,6 +32,11 @@
     const about = cfg.about || "";
     const formEmail = cfg.formEmail || "";
     const banner = opts.banner || cfg.banner || "";
+    const digits = phone.replace(/[^0-9]/g, "");
+    const waNum = /^07\d{9}$/.test(digits) ? "44" + digits.slice(1) : (/^447\d{9}$/.test(digits) ? digits : "");
+    const wa = cfg.whatsapp !== false && waNum ? `https://wa.me/${waNum}?text=${encodeURIComponent("Hi " + name + ", I found you on your website and I'd like a quote.")}` : "";
+    const hours = cfg.hours || "";
+    const emergency = !!cfg.emergency;
 
     const css = `:root{--bg:#f6f7f9;--card:#fff;--ink:#14202b;--muted:#596673;--rule:#d8dee4;--brand:${t.brand};--on:#fff;--accent:${t.accent};--d:"Barlow Condensed","Arial Narrow",Arial,sans-serif;--b:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f151b;--card:#17212a;--ink:#e9eef2;--muted:#9fb0bd;--rule:#2b3945;color-scheme:dark}}
@@ -45,7 +50,7 @@ p{margin:0;max-width:65ch}.s{display:flex;flex-direction:column;gap:14px}
 .top strong{font:700 1.4rem var(--d);letter-spacing:.02em}.top a{font-weight:700;color:var(--on);font-size:1.1rem;text-decoration:none}
 .hero{background:var(--brand);color:var(--on)}.hero .w{padding-block:36px 56px}.hero p{opacity:.92;font-size:1.15rem}
 .btn{display:inline-block;background:var(--accent);color:#14202b;font-weight:700;padding:14px 22px;border-radius:6px;text-decoration:none;font-size:1.05rem}
-.btn.o{background:transparent;color:var(--on);border:2px solid var(--on)}.row{display:flex;gap:12px;flex-wrap:wrap}
+.btn.o{background:transparent;color:var(--on);border:2px solid var(--on)}.btn.wa{background:#25d366;color:#0b2e17}.meta{display:flex;gap:14px;flex-wrap:wrap;font-weight:600;font-size:.95rem}.meta span{background:rgba(255,255,255,.14);padding:4px 10px;border-radius:4px}.row{display:flex;gap:12px;flex-wrap:wrap}
 .badges{display:flex;gap:8px;flex-wrap:wrap}.badges span{border:1px solid rgba(255,255,255,.5);padding:5px 10px;border-radius:4px;font-size:.85rem}
 section{padding-block:48px;border-bottom:1px solid var(--rule)}
 .svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.svc div{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:18px;min-width:0}
@@ -73,15 +78,19 @@ footer{padding-block:28px;color:var(--muted);font-size:.9rem}footer a{color:inhe
       ? `action="https://formsubmit.co/${esc(formEmail)}" method="POST"`
       : `onsubmit="event.preventDefault();this.querySelector('.ok').hidden=false"`;
     const formExtra = formEmail
-      ? `<input type="hidden" name="_subject" value="New quote request from your website"><input type="hidden" name="_template" value="table"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">`
+      ? `<input type="hidden" name="_subject" value="New quote request from your website"><input type="hidden" name="_template" value="table"><input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">${cfg.leadsCc ? `<input type="hidden" name="_cc" value="${esc(cfg.leadsCc)}">` : ""}`
       : `<p class="ok" hidden role="status">Preview only: on the live site this sends the request to ${esc(name)} by email.</p>`;
 
-    const schema = JSON.stringify({ "@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", name, telephone: phone, areaServed: areas, address: { "@type": "PostalAddress", addressLocality: town, addressCountry: "GB" } }).replace(/</g, "\\u003c");
+    const schemaObj = { "@context": "https://schema.org", "@type": "HomeAndConstructionBusiness", name, telephone: phone, areaServed: areas, address: { "@type": "PostalAddress", addressLocality: town, addressCountry: "GB" } };
+    if (emergency) schemaObj.openingHours = "Mo-Su 00:00-23:59"; else if (hours) schemaObj.description = "Opening hours: " + hours;
+    if (opts.siteUrl) schemaObj.url = opts.siteUrl;
+    const schema = JSON.stringify(schemaObj).replace(/</g, "\\u003c");
 
     const body = `${banner ? `<div class="banner">${esc(banner)}</div>` : ""}
 <header class="top"><div class="w"><strong>${esc(name)}</strong>${phone ? `<a href="tel:${esc(tel)}">${esc(phone)}</a>` : ""}</div></header>
 <div class="hero"><div class="w s"><h1>${esc(headline)}</h1><p>${esc(intro)}</p>
-<div class="row">${phone ? `<a class="btn" href="tel:${esc(tel)}">Call ${esc(phone)}</a>` : ""}<a class="btn o" href="#quote">Request a quote</a></div>
+<div class="row">${phone ? `<a class="btn" href="tel:${esc(tel)}">Call ${esc(phone)}</a>` : ""}${wa ? `<a class="btn wa" href="${esc(wa)}" target="_blank" rel="noopener">WhatsApp us</a>` : ""}<a class="btn o" href="#quote">Request a quote</a></div>
+${(emergency || hours) ? `<div class="meta">${emergency ? "<span>24/7 emergency callouts</span>" : ""}${hours ? `<span>${esc(hours)}</span>` : ""}</div>` : ""}
 ${credHtml ? `<div class="badges">${credHtml}</div>` : ""}</div></div>
 <main class="w">
 ${svcHtml ? `<section class="s"><h2>What we do</h2><div class="svc">${svcHtml}</div></section>` : ""}
