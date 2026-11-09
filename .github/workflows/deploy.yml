@@ -9,7 +9,7 @@ permissions:
   id-token: write
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,15 +18,16 @@ jobs:
       url: ${{ steps.d.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Expand site.zip if present
+      - name: Replace site with site.zip if present (full replace, so deleted files are removed)
         run: |
           if [ -f site.zip ]; then
-            unzip -o -q site.zip
-            rm site.zip
+            mv site.zip /tmp/site.zip
+            git rm -rq --ignore-unmatch -- . ':(exclude).github'
+            unzip -o -q /tmp/site.zip
             git config user.name "Callout Web"
             git config user.email "calloutweb.hello@gmail.com"
             git add -A
-            git commit -m "Expand site.zip"
+            git commit -m "Replace site from site.zip"
             git push
           fi
       - uses: actions/configure-pages@v5
