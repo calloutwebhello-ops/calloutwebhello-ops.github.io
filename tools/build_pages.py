@@ -196,7 +196,7 @@ def order_pages():
 <div class="btns"><a class="btn primary" id="paylink" href="#">Pay by card</a></div>
 <p id="nopay" hidden class="lead">Online payment isn't switched on yet. We'll email you a secure payment link within one working day.</p>
 <p>Payments are handled by Stripe. After paying, reply to your confirmation email with up to 6 job photos if you have them. Your site will usually go live the next working day.</p></section>
-<script src="../../assets/config.js"></script>
+<script src="../../assets/config.js?v=20261109b"></script>
 <script>(function(){const C=window.CALLOUT_CONFIG||{};const q=new URLSearchParams(location.search);const id=(q.get('id')||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,190);
 const P=C.PLANS||{};const key=(q.get('plan')||'starter').replace(/[^a-z]/g,'');const plan=P[key]||P.starter;
 document.getElementById('oid').textContent=id||'(see your email)';
