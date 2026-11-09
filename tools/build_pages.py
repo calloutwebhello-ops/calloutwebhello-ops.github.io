@@ -179,7 +179,7 @@ def legal():
 
 def order_pages():
     pay = """<section style="border-top:0" class="stack"><span class="label">Step 2 of 2</span><h1>Order received. Now pay securely.</h1>
-<p class="lead">Your order reference is <b id="oid">being created</b>. We've emailed you a confirmation.</p>
+<p class="lead">Your order reference is <b id="oid">being created</b>. We'll email you a confirmation shortly.</p>
 <div class="btns"><a class="btn primary" id="paylink" href="#">Pay £249 by card</a></div>
 <p id="care" hidden>You asked for the Care Plan. After paying for your site, <a id="carelink" href="#">set up the £20/month Care Plan here</a>.</p>
 <p id="nopay" hidden class="lead">Online payment isn't switched on yet. We'll email you a secure payment link within one working day.</p>
