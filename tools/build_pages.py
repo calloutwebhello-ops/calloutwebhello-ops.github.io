@@ -197,6 +197,8 @@ if(q.get('care')&&C.STRIPE_CARE_LINK){document.getElementById('care').hidden=fal
     page("404.html", "Page not found | Callout Web", "Not found", nf, 0)
 
 def sitemap(paths):
+    # Delivered client sites are public pages too: list them so Google finds them without anyone asking.
+    paths = list(paths) + sorted(f"sites/{d.name}/" for d in (ROOT / "sites").glob("*") if (d / "index.html").exists())
     urls = "".join(f"<url><loc>{SITE}/{p}</loc><lastmod>{TODAY}</lastmod></url>" for p in paths)
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{urls}</urlset>')
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /order/\nSitemap: {SITE}/sitemap.xml\n")

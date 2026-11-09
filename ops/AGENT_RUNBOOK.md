@@ -21,7 +21,8 @@ Never commit orders, ledgers, reports or customer emails to GitHub (the repo is 
    - If the customer replied with photos, save up to 6 images to `sites/<slug>/img/` (01.jpg … 06.jpg). If the connector can't fetch attachments, proceed without photos and say so in the delivery email.
    - Run `node ops/fulfil.mjs ops/orders/<ORDER_ID>.json`. If it exits non-zero, email the customer one polite message asking for the missing/invalid detail listed in `problems`, set status `needs_info`, stop for this order.
    - Read the generated page. Check: name, phone and credentials match the order exactly; nothing invented; no placeholder text.
-   - Commit (`site: <slug> for <ORDER_ID>`) and push. Wait for GitHub Pages, then fetch `SITE_URL/sites/<slug>/` and confirm it loads.
+   - Run `python3 tools/build_pages.py` so the new site is added to sitemap.xml, then commit (`site: <slug> for <ORDER_ID>`) and push.
+   - After the customer clicks FormSubmit's activation link, FormSubmit gives a random form code: replace their email in the site's form with it (`formEmail` in the order config) and republish, so their email isn't visible in the page code. Wait for GitHub Pages, then fetch `SITE_URL/sites/<slug>/` and confirm it loads.
    - Send the delivery email (template D1). Status → `live`.
 4. **Chase unpaid orders** once only: 2 days after the order, send template P1. After 7 days, status → `abandoned`.
 5. **Answer support emails** (anything else in the inbox from customers) using `ops/SUPPORT_FAQ.md`. Change requests from paid customers (within 2 rounds, or any time on Care Plan): edit `ops/orders/<ID>.json` `config`, re-run fulfil, push, reply with the link.
@@ -44,6 +45,10 @@ Never commit orders, ledgers, reports or customer emails to GitHub (the repo is 
 > Hi {name}, your new website is live: {url}
 > Your quote form sends enquiries to {email}. The first time, FormSubmit will email you an activation link: please click it, or the form won't deliver.
 > {domain_part}
+> Help customers find it (10 minutes, worth it):
+> 1. Google: open your Google Business Profile (search your business name on Google while signed in, or go to business.google.com), choose Edit profile > Contact > Website, and paste {url}. No profile yet? Create one free at business.google.com.
+> 2. Put {url} on your Facebook page, Yell listing, van, quotes and invoices.
+> 3. Ask your last few happy customers for a Google review.
 > You have two rounds of changes included: just reply with what you'd like changed. Thanks for choosing Callout Web.
 
 `domain_part` (if they gave a domain): "To use {domain}: buy it in your own name (about £10/year, e.g. at Cloudflare or Namecheap), then add these DNS records: CNAME `www` → `<github-user>.github.io`, and A records for the bare domain → 185.199.108.153, 185.199.109.153, 185.199.110.153, 185.199.111.153. Reply when done and we'll switch it on."
