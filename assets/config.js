@@ -12,6 +12,6 @@ window.CALLOUT_CONFIG = {
     own:     { name: "Own it",  price: 249, period: "one-off", link: "https://buy.stripe.com/5kQ00i38Pgyz2945zpgIo00" }
   },
   // Retired: £20/month Care Plan link (deactivated in Stripe), test-mode links in the Stripe sandbox.
-  OUTREACH_APPROVED: true,                          // preview-first B2B outreach (ops/outreach.py). Approved by the owner on 9 Nov 2026: max 10 sends per weekday, 100 total for the first campaign.
+  OUTREACH_APPROVED: true,                          // preview-first B2B outreach (ops/outreach.py). Approved by the owner on 9 Nov 2026: max 5 sends per weekday, 100 total for the first campaign.
   DEMO_MODE: false                                 // true = no real submissions (used for claude.ai preview copy)
 };

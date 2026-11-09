@@ -79,7 +79,7 @@ Customer emails to cancel: reply confirming, label CW/Escalate so the owner canc
 Each customer's referral link is `https://calloutwebhello-ops.github.io/preview/?ref=<their slug>` — include it in the welcome (D1) email: "Know another tradesperson? When they join a monthly plan using your link, you both get your next month free." When a paid order's `ref` matches a live customer's slug, put "Referral credit: <both businesses>" under Needs owner (the owner applies the free month in Stripe).
 
 ## Outreach (approved 9 Nov 2026; runs only while OUTREACH_APPROVED is true)
-Campaign 1: up to 100 companies in total, max 10 new emails per weekday, from calloutweb.hello@gmail.com. Count = threads labelled CW/Outreach.
+Campaign 1: up to 100 companies in total, max 5 new emails per weekday, from calloutweb.hello@gmail.com. Count = threads labelled CW/Outreach.
 
 How to find prospects (proven on 9 Nov; about 1 in 5 directory listings yields a usable email):
 1. Search trade-body and directory listings for UK limited companies by trade + town (e.g. corc.co.uk/members, fmb.org.uk/builder, checkatrade, trustatrader, freeindex, myjobquote). Rotate trades and towns across the whole UK.

@@ -10,7 +10,7 @@ UK rules this script enforces (PECR / UK GDPR, B2B):
     Sole traders and partnerships are treated like individuals: no unsolicited email.
   - Only a generic business address published by the company (e.g. info@, enquiries@).
   - Every email identifies us and has a one-line opt-out; opt-outs go on the suppression list forever.
-  - Small volume (max 10 per run) and one email per company, no chasers unless they reply.
+  - Small volume (max 5 per run) and one email per company, no chasers unless they reply.
 
 Usage: python3 ops/outreach.py prospects.csv out.json [--suppress suppress.txt]
 CSV columns: business,trade,town,phone,email,company_type,source_url
@@ -18,7 +18,7 @@ CSV columns: business,trade,town,phone,email,company_type,source_url
 import csv, json, sys, re, urllib.parse, pathlib
 
 SITE = "https://calloutwebhello-ops.github.io"
-MAX_PER_RUN = 10
+MAX_PER_RUN = 5
 GENERIC = re.compile(r"^(info|enquiries|enquiry|hello|contact|office|admin|sales|bookings|mail)@", re.I)
 
 def main():

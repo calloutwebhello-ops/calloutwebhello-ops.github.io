@@ -70,6 +70,7 @@ iframe{border:0;width:100%;height:72vh;min-height:520px;background:#fff;transiti
     <label for="hours">Opening hours <small>optional, e.g. Mon–Sat 8am–6pm</small><input id="hours" name="hours" placeholder="Mon–Sat 8am–6pm"></label>
     <label class="chk"><input type="checkbox" id="whatsapp" checked> Show a WhatsApp button (uses the mobile number above)</label>
     <label class="chk"><input type="checkbox" id="emergency"> I offer 24/7 emergency callouts</label>
+    <div><span class="label">Style</span><div class="seg styles" id="styles" role="group" aria-label="Design style"></div></div>
     <div><span class="label">Colour</span><div class="themes" id="themes" role="group" aria-label="Colour theme"></div></div>
     <label for="photos">Job photos <small>optional, up to 6, shown only on your screen until you order</small><input id="photos" type="file" accept="image/*" multiple></label>
 
@@ -106,23 +107,23 @@ iframe{border:0;width:100%;height:72vh;min-height:520px;background:#fff;transiti
 (function(){
 const C = window.CALLOUT_CONFIG || {}; const T = window.CalloutTemplate;
 const TRADES = {
- "Plumber":["Leaks and burst pipes - Fast response across the area","Boiler servicing and repairs","Bathroom installations","Radiators and heating","Taps, toilets and showers"],
- "Electrician":["Fault finding and repairs - Same or next day in most cases","Consumer unit upgrades","Rewires","EV charger installation","EICR landlord certificates"],
- "Roofer":["Roof repairs and leaks","Flat roofs","Guttering, fascias and soffits","Chimney repairs","New roofs and re-roofs"],
- "Builder":["Extensions","Loft conversions","Garage conversions","Brickwork and repointing","General building work"],
- "Painter & decorator":["Interior painting","Exterior painting","Wallpapering","Woodwork and gloss","Commercial decorating"],
- "Landscaper":["Garden design and landscaping","Patios and paving","Fencing","Turfing","Garden clearance"],
- "Cleaner":["Regular home cleaning","End of tenancy cleans","Deep cleans","Office cleaning","Oven cleaning"],
- "Locksmith":["Emergency lockouts - 24/7 call-out","Lock changes and upgrades","uPVC door repairs","Burglary repairs","Key cutting"],
- "Carpenter":["Fitted wardrobes and shelving","Doors and skirting","Kitchen fitting","Decking","Bespoke joinery"],
- "Plasterer":["Skimming and re-plastering","Rendering","Artex removal","Ceiling repairs","Dry lining"],
- "Gardener":["Lawn mowing","Hedge trimming","Garden tidy-ups","Weeding and borders","Green waste removal"],
+ "Plumber":["Leaks and burst pipes - Fast help when water is where it shouldn't be", "Boiler servicing and repairs - Keep your heating and hot water running", "Bathroom installations - From a new suite to a full refit", "Radiators and heating - Cold spots, bleeding, new radiators and moves", "Taps, toilets and showers - Drips, blockages and replacements"],
+ "Electrician":["Fault finding and repairs - Tripping switches, dead sockets and flickering lights", "Consumer unit upgrades - Modern fuse boards with RCD protection", "Rewires - Full and partial rewires for older homes", "EV charger installation - Charge at home on your own driveway", "EICR landlord certificates - Electrical safety reports for rentals"],
+ "Roofer":["Roof repairs and leaks - Slipped tiles, flashing and leak tracing", "Flat roofs - Felt, rubber and GRP flat roofing", "Guttering, fascias and soffits - Clear, repair or replace", "Chimney repairs - Repointing, flashing and stacks", "New roofs and re-roofs - Full strip and re-roof"],
+ "Builder":["Extensions - Single and double storey extensions", "Loft conversions - Turn unused loft space into rooms", "Garage conversions - Extra living space without moving", "Brickwork and repointing - Walls, repairs and repointing", "General building work - Alterations, repairs and renovations"],
+ "Painter & decorator":["Interior painting - Walls, ceilings and woodwork", "Exterior painting - Render, masonry, windows and doors", "Wallpapering - Feature walls to full rooms", "Woodwork and gloss - Skirting, doors and banisters", "Commercial decorating - Offices, shops and rentals"],
+ "Landscaper":["Garden design and landscaping - Plan and build the garden you want", "Patios and paving - Slabs, porcelain and block paving", "Fencing - Panels, posts and gates", "Turfing - New lawns laid properly", "Garden clearance - Overgrown gardens cleared and tidied"],
+ "Cleaner":["Regular home cleaning - Weekly or fortnightly cleans", "End of tenancy cleans - Top-to-bottom cleans for moving out", "Deep cleans - Kitchens, bathrooms and the bits that get missed", "Office cleaning - Before or after working hours", "Oven cleaning - Ovens, hobs and extractor hoods"],
+ "Locksmith":["Emergency lockouts - Locked out of your home or car", "Lock changes and upgrades - New locks and higher-security cylinders", "uPVC door repairs - Doors that stick, drop or won't lock", "Burglary repairs - Secure your home after a break-in", "Key cutting - Spare keys cut"],
+ "Carpenter":["Fitted wardrobes and shelving - Made to fit your space", "Doors and skirting - Hanging doors and fitting skirting", "Kitchen fitting - Units, worktops and doors", "Decking - Built to last outside", "Bespoke joinery - One-off pieces made to measure"],
+ "Plasterer":["Skimming and re-plastering - Smooth walls and ceilings", "Rendering - Outside walls rendered and repaired", "Artex removal - Covered or skimmed for a flat finish", "Ceiling repairs - Cracks, holes and sagging ceilings", "Dry lining - Plasterboard walls and ceilings"],
+ "Gardener":["Lawn mowing - Regular cuts through the season", "Hedge trimming - Neat hedges, front and back", "Garden tidy-ups - One-off or regular visits", "Weeding and borders - Beds kept clear and tidy", "Green waste removal - We take the cuttings away"],
  "Other trade":["Your main service","Your second service","Your third service"]
 };
 const $ = id => document.getElementById(id);
 const tradeSel = $("trade");
 Object.keys(TRADES).forEach(t => tradeSel.add(new Option(t, t)));
-let theme = "navy", photos = [], lastTrade = "Plumber";
+let theme = "", style = "", photos = [], lastTrade = "Plumber";
 try { const qt = new URLSearchParams(location.search).get("trade"); if (qt && TRADES[qt]) { lastTrade = qt; tradeSel.value = qt; } } catch (e) {}
 $("services").value = TRADES[lastTrade].join("\n");
 // Prefill from link: ?name=&trade=&town=&phone=&areas=&ref= (used by personalised preview links and referrals)
@@ -135,13 +136,18 @@ try{const q=new URLSearchParams(location.search);const set=(k,id)=>{const v=q.ge
   const pl=q.get("plan");if(pl){const r=document.querySelector('input[name=plan][value="'+pl.replace(/[^a-z]/g,"")+'"]');if(r)r.checked=true;}
 }catch(e){}
 
-Object.entries(T.THEMES).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.style.background=`linear-gradient(135deg,${v.brand} 60%,${v.accent} 60%)`;b.setAttribute("aria-label",k+" theme");b.setAttribute("aria-pressed",k===theme);b.onclick=()=>{theme=k;[...$("themes").children].forEach(x=>x.setAttribute("aria-pressed",x===b));render();};$("themes").appendChild(b);});
+const curTrade=()=>tradeSel.value==="Other trade"?"Trade services":tradeSel.value;
+function syncPicks(){const d=T.tradeInfo(curTrade());const th=theme||d.theme, st=style||d.style;
+  [...$("themes").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.k===th));[...$("styles").children].forEach(x=>x.setAttribute("aria-pressed",x.dataset.k===st));}
+Object.entries(T.THEMES).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.dataset.k=k;b.style.background=`linear-gradient(135deg,${v.brand} 60%,${v.accent} 60%)`;b.setAttribute("aria-label",k+" colour");b.onclick=()=>{theme=k;syncPicks();render();};$("themes").appendChild(b);});
+Object.entries(T.STYLES).forEach(([k,v])=>{const b=document.createElement("button");b.type="button";b.dataset.k=k;b.textContent=v;b.onclick=()=>{style=k;syncPicks();render();};$("styles").appendChild(b);});
+syncPicks();
 
-tradeSel.addEventListener("change",()=>{const cur=$("services").value.trim();if(!cur||cur===TRADES[lastTrade].join("\n"))$("services").value=TRADES[tradeSel.value].join("\n");lastTrade=tradeSel.value;render();});
+tradeSel.addEventListener("change",()=>{const cur=$("services").value.trim();if(!cur||cur===TRADES[lastTrade].join("\n"))$("services").value=TRADES[tradeSel.value].join("\n");lastTrade=tradeSel.value;syncPicks();render();});
 
 function cfg(){
-  return { name:$("name").value.trim(), trade:tradeSel.value==="Other trade"?"Trade services":tradeSel.value, town:$("town").value.trim(), phone:$("phone").value.trim(),
-    headline:$("headline").value.trim(), areas:$("areas").value, credentials:$("credentials").value, about:$("about").value.trim(), theme,
+  return { name:$("name").value.trim(), trade:curTrade(), town:$("town").value.trim(), phone:$("phone").value.trim(),
+    headline:$("headline").value.trim(), areas:$("areas").value, credentials:$("credentials").value, about:$("about").value.trim(), theme:theme||undefined, style:style||undefined,
     hours:$("hours").value.trim(), whatsapp:$("whatsapp").checked, emergency:$("emergency").checked,
     services:$("services").value.split("\n").map(l=>l.trim()).filter(Boolean).map(l=>{const [n,...r]=l.split(" - ");return {name:n.trim(),text:r.join(" - ").trim()};}) };
 }
