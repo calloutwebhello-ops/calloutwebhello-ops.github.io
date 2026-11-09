@@ -78,5 +78,16 @@ Customer emails to cancel: reply confirming, label CW/Escalate so the owner canc
 ## Referrals
 Each customer's referral link is `https://calloutwebhello-ops.github.io/preview/?ref=<their slug>` — include it in the welcome (D1) email: "Know another tradesperson? When they join a monthly plan using your link, you both get your next month free." When a paid order's `ref` matches a live customer's slug, put "Referral credit: <both businesses>" under Needs owner (the owner applies the free month in Stripe).
 
-## Outreach (OFF until OUTREACH_APPROVED is true in assets/config.js)
-`ops/outreach.py` turns a CSV of limited companies without websites into personalised preview links and email drafts (max 10/run, generic business addresses only, opt-out line, suppression list). Never run it while the flag is false. Never email sole traders or partnerships unsolicited.
+## Outreach (approved 9 Nov 2026; runs only while OUTREACH_APPROVED is true)
+Campaign 1: up to 100 companies in total, max 10 new emails per weekday, from calloutweb.hello@gmail.com. Count = threads labelled CW/Outreach.
+
+How to find prospects (proven on 9 Nov; about 1 in 5 directory listings yields a usable email):
+1. Search trade-body and directory listings for UK limited companies by trade + town (e.g. corc.co.uk/members, fmb.org.uk/builder, checkatrade, trustatrader, freeindex, myjobquote). Rotate trades and towns across the whole UK.
+2. Keep only companies whose name or site states Ltd/Limited/LLP, and that publish a business email (info@, enquiries@, or a business-name address like companyname@gmail.com). Never use a person's named address or a sole trader/partnership.
+3. Fetch their website (if any). Only email if ONE of these is verifiably true: (a) no website at all; (b) a concrete, checkable problem you saw yourself: broken or mistyped email link, menu links that go nowhere, visible typos, out-of-date copyright (3+ years), placeholder text, no mobile viewport. Quote the exact problem. If their site is fine, skip them.
+4. Check suppression: skip anyone already labelled CW/Outreach or who replied STOP (label CW/Do not contact).
+
+Email format (keep it this short and kind): greeting to "<Company> team"; the specific problem in one or two sentences (or "I couldn't find a website for you"); the personalised preview link https://calloutwebhello-ops.github.io/preview/?name=..&trade=..&town=..&phone=..&ref=outreach; "If you like it, it can go live from £19 a month with no setup fee and no contract. If not, no problem at all."; sign "Josh, Callout Web (Joshua Spiers, UK sole trader) · site URL"; source line "I found your details on <source>. Reply STOP and I won't email you again." Label the sent thread CW/Outreach.
+
+Replies: STOP/unsubscribe → reply once "Done, you won't hear from us again", label CW/Do not contact. Interested → answer from SUPPORT_FAQ and point them to their preview link. Complaints → CW/Escalate. Never send a follow-up to someone who hasn't replied.
+Report daily: sent today, total sent, replies, opt-outs, orders with ref=outreach.
